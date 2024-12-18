@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
+    "postinstall": "npm rebuild sqlite3",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
