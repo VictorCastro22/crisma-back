@@ -8,8 +8,14 @@ import path from 'node:path';
 const app: Application = express();
 const port = 3001;
 
+
+app.use(cors({
+    origin: 'https://crisma-mpe.vercel.app',  
+}));
+
+
 app.use(bodyParser.json());
-app.use(cors());
+
 
 const db = new sqlite3.Database(path.resolve(__dirname, 'attendance.db'), (err) => {
     if (err) {
@@ -18,6 +24,7 @@ const db = new sqlite3.Database(path.resolve(__dirname, 'attendance.db'), (err) 
         console.log('Conectado ao banco de dados SQLite.');
     }
 });
+
 
 db.serialize(() => {
     db.run(
@@ -29,6 +36,12 @@ db.serialize(() => {
         }
     );
 });
+
+
+app.get('/', (req: Request, res: Response) => {
+    res.json({ message: 'API está funcionando!' });
+});
+
 
 app.post('/register', (req: Request, res: Response) => {
     const { turma, crismando, presenca } = req.body;
@@ -48,6 +61,7 @@ app.post('/register', (req: Request, res: Response) => {
         }
     );
 });
+
 
 app.get('/reports', (req: Request, res: Response) => {
     db.all('SELECT turma, crismando, presenca FROM attendance', [], (err, rows) => {
@@ -72,6 +86,13 @@ app.get('/update-null-values', (req: Request, res: Response) => {
         }
     );
 });
+
+
+app.post('/computar', (req: Request, res: Response) => {
+    
+    res.json({ message: 'Computação realizada com sucesso' });
+});
+
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
