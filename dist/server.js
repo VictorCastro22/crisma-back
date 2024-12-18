@@ -7,12 +7,12 @@ const express_1 = __importDefault(require("express"));
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
-const path_1 = __importDefault(require("path"));
+const node_path_1 = __importDefault(require("node:path"));
 const app = (0, express_1.default)();
 const port = 3001;
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
-const db = new sqlite3_1.default.Database(path_1.default.resolve(__dirname, 'attendance.db'), (err) => {
+const db = new sqlite3_1.default.Database(node_path_1.default.resolve(__dirname, 'attendance.db'), (err) => {
     if (err) {
         console.error('Erro ao abrir o banco de dados:', err.message);
     }

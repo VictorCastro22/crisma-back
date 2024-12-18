@@ -1,8 +1,9 @@
-import express, { Application, Request, Response } from 'express';
+import express from 'express';
+import type { Application, Request, Response } from 'express';
 import sqlite3 from 'sqlite3';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import path from 'path';
+import path from 'node:path';
 
 const app: Application = express();
 const port = 3001;
